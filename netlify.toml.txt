@@ -1,0 +1,8 @@
+# netlify.toml
+
+[build]
+  command = "npm run build"     # Your custom build command
+  publish = "dist"              # Folder to publish (usually 'dist' or 'build')
+
+[build.environment]
+  NODE_VERSION = "20"           # Required Node.js version
