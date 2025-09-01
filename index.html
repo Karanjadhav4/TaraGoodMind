@@ -11,6 +11,7 @@
     <link rel="icon" href="/logo-removebg-preview.png" type="image/png" />
     <link rel="apple-touch-icon" href="/logo-removebg-preview.png" />
 
+    <!-- Open Graph / Social -->
     <meta property="og:title" content="GoodMind Tara" />
     <meta property="og:description" content="GoodMind Tara - Voice assistant" />
     <meta property="og:type" content="website" />
@@ -23,28 +24,25 @@
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#556B2F" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="GoodMind Tara" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-TileColor" content="#556B2F" />
     <meta name="msapplication-tap-highlight" content="no" />
-    
+
     <!-- PWA Icons -->
     <link rel="apple-touch-icon" href="/logo-removebg-preview.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/logo-removebg-preview.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/logo-removebg-preview.png" />
-    
+
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
-    
-    <!-- WebView specific meta tags -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    
+
     <!-- Security and compatibility -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="format-detection" content="telephone=no" />
-    
-    <!-- Content Security Policy for WebView compatibility -->
+
+    <!-- CSP -->
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https://*.11labs.io https://*.vercel.app https://*.googleapis.com https://apis.google.com https://checkout.razorpay.com;
@@ -59,29 +57,30 @@
 
   <body>
     <div id="root"></div>
+
+    <!-- Vite entrypoint -->
     <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- PWA Service Worker Registration -->
+
+    <!-- PWA Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
             .then((registration) => {
-              console.log('✅ PWA Service Worker registered successfully:', registration.scope);
+              console.log('✅ PWA Service Worker registered:', registration.scope);
             })
             .catch((error) => {
-              console.log('❌ PWA Service Worker registration failed:', error);
+              console.log('❌ PWA Service Worker failed:', error);
             });
         });
       }
-      
+
       // PWA Install Prompt
       let deferredPrompt;
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        
-        // Show custom install button if needed
+
         const installButton = document.getElementById('pwa-install-button');
         if (installButton) {
           installButton.style.display = 'block';
